@@ -1,0 +1,18 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt"
+
+[start]
+command = "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+
+[env]
+PYTHON_VERSION = "3.11"
+
+[[services]]
+internalPort = 8000
+protocol = "http"
+
+[services.healthcheck]
+path = "/health"
+interval = "30s"
+timeout = "5s"
